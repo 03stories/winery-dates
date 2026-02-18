@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  listing: CollectionEntry<'listings'>;
+}
+
+const { listing } = Astro.props;
+---
+
+<article>
+  <h3><a href={`/listing/${listing.slug}`}>{listing.data.title}</a></h3>
+  <p>{listing.data.description}</p>
+  <p>
+    <strong>Category:</strong>
+    <a href={`/category/${listing.data.category.toLowerCase().replace(/\s+/g, '-')}`}>{listing.data.category}</a>
+  </p>
+  <p>
+    <strong>City:</strong>
+    <a href={`/city/${listing.data.city.toLowerCase().replace(/\s+/g, '-')}`}>{listing.data.city}</a>
+  </p>
+</article>
+
+<style>
+  article {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    margin-top: 0;
+  }
+</style>
