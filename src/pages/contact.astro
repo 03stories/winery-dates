@@ -1,8 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { toBasePath } from '../config/site';
 ---
 
 <BaseLayout title="Contact" description="Contact Winery Dates Directory.">
   <h1>Contact</h1>
   <p>Email us at contact@example.com for listing corrections or partnership questions.</p>
+  <p>
+    Want to suggest a new winery? Use our{' '}
+    <a href={toBasePath('/submit-listing')}>submit a listing form</a>.
+  </p>
 </BaseLayout>

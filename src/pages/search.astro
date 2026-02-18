@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { toBasePath } from '../config/site';
+
+const pagefindBase = toBasePath('/');
+---
+
+<BaseLayout
+  title="Search"
+  description="Search winery listings, categories, and city pages across Winery Dates Directory."
+>
+  <h1>Search listings</h1>
+  <p>Use keyword search to quickly find wineries, city pages, and category pages.</p>
+
+  <div id="search"></div>
+
+  <link rel="stylesheet" href={toBasePath('/pagefind/pagefind-ui.css')} />
+  <script define:vars={{ pagefindBase }}>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.PagefindUI !== 'function') {
+        return;
+      }
+
+      new window.PagefindUI({
+        element: '#search',
+        baseUrl: pagefindBase,
+        showSubResults: true,
+        resetStyles: false,
+        autofocus: true,
+      });
+    });
+  </script>
+  <script src={toBasePath('/pagefind/pagefind-ui.js')} defer></script>
+</BaseLayout>
+
+<style>
+  #search {
+    margin-top: 1rem;
+    max-width: 720px;
+  }
+
+  :global(.pagefind-ui__result-title),
+  :global(.pagefind-ui__drawer),
+  :global(.pagefind-ui__message) {
+    font-family: Inter, system-ui, sans-serif;
+  }
+</style>

@@ -30,11 +30,13 @@ Copy `.env.example` to `.env` and adjust values:
 SITE_URL=https://example.com
 PUBLIC_ADS_ENABLED=false
 PUBLIC_ADSENSE_CLIENT_ID=
+PUBLIC_SUBMIT_LISTING_URL=https://github.com/<owner>/<repo>/issues/new?template=listing_submission.yml
 ```
 
 - `SITE_URL`: used for canonical URLs and sitemap generation.
 - `PUBLIC_ADS_ENABLED`: set to `true` to render ad placeholders and load the AdSense script.
 - `PUBLIC_ADSENSE_CLIENT_ID`: AdSense client ID (`ca-pub-...`) loaded only when ads are enabled.
+- `PUBLIC_SUBMIT_LISTING_URL`: URL to the GitHub issue template used by the "Submit a listing" flow.
 
 ## Content model and adding listings
 
@@ -73,7 +75,12 @@ To add a listing:
 - `/category/[category]` category index pages
 - `/city/[city]` city index pages
 - `/categories` and `/cities` taxonomy landing pages
-- `/about`, `/contact`, `/privacy-policy`, `/terms`
+- `/search` powered by Pagefind full-text search
+- `/about`, `/contact`, `/submit-listing`, `/privacy-policy`, `/terms`, `/404`
+
+## Search
+
+Pagefind is generated as part of `npm run build` and outputs static search assets to `dist/pagefind`.
 
 ## SEO defaults
 
