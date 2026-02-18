@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { toBasePath } from '../config/site';
 import { normalizeTaxonomyValue } from '../utils/listing';
 
 const listings = await getCollection('listings');
@@ -20,7 +21,7 @@ const categories = Object.entries(categoryCounts).sort((a, b) => a[0].localeComp
   <ul>
     {categories.map(([category, count]) => (
       <li>
-        <a href={`/category/${normalizeTaxonomyValue(category)}`}>{category}</a> ({count})
+        <a href={toBasePath(`/category/${normalizeTaxonomyValue(category)}`)}>{category}</a> ({count})
       </li>
     ))}
   </ul>

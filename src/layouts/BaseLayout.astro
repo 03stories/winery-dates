@@ -1,5 +1,5 @@
 ---
-import { ADS_ENABLED, ADSENSE_CLIENT_ID, toCanonical } from '../config/site';
+import { ADS_ENABLED, ADSENSE_CLIENT_ID, toBasePath, toCanonical } from '../config/site';
 
 interface Props {
   title: string;
@@ -35,9 +35,9 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
   <body>
     <header>
       <nav>
-        <a href="/">Home</a>
-        <a href="/categories">Categories</a>
-        <a href="/cities">Cities</a>
+        <a href={toBasePath('/')}>Home</a>
+        <a href={toBasePath('/categories')}>Categories</a>
+        <a href={toBasePath('/cities')}>Cities</a>
       </nav>
     </header>
     <main>
@@ -46,10 +46,10 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
     <footer>
       <p>© {new Date().getFullYear()} Winery Dates Directory</p>
       <ul>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/privacy-policy">Privacy Policy</a></li>
-        <li><a href="/terms">Terms</a></li>
+        <li><a href={toBasePath('/about')}>About</a></li>
+        <li><a href={toBasePath('/contact')}>Contact</a></li>
+        <li><a href={toBasePath('/privacy-policy')}>Privacy Policy</a></li>
+        <li><a href={toBasePath('/terms')}>Terms</a></li>
       </ul>
     </footer>
   </body>
