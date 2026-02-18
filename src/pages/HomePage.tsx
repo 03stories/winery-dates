@@ -138,37 +138,40 @@ export function HomePage(): JSX.Element {
   }, [distanceByWineryId, hasDistanceSort, minRating, outsideFood, query]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <Card
         title="Find a winery for date night"
-        description="Georgia winery directory with real details, ratings, and outside-food policies."
+        description="Tell us your vibe and we'll help you discover a perfect Georgia wine stop."
       >
-        <div className="grid gap-3 sm:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           <label className="text-sm text-slate-700">
-            Search
+            <span className="font-medium">I'm in the mood for a place around</span>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Name, city, or address"
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              placeholder="Dahlonega, Atlanta, terrace, etc."
+              className="field-base"
             />
           </label>
+
           <label className="text-sm text-slate-700">
-            Outside food
+            <span className="font-medium">Please show wineries where outside food is</span>
             <select
               value={outsideFood}
               onChange={(event) =>
                 setOutsideFood(event.target.value as 'Any' | 'Allowed' | 'Restricted')
               }
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="field-base"
             >
               <option>Any</option>
               <option>Allowed</option>
               <option>Restricted</option>
             </select>
           </label>
+
           <label className="text-sm text-slate-700">
-            Minimum rating ({minRating.toFixed(1)}+)
+            <span className="font-medium">Keep the quality at least</span>
+            <p className="mt-1 text-xs text-slate-500">{minRating.toFixed(1)} stars and up</p>
             <input
               type="range"
               min={4.0}
@@ -176,35 +179,36 @@ export function HomePage(): JSX.Element {
               step={0.1}
               value={minRating}
               onChange={(event) => setMinRating(Number(event.target.value))}
-              className="mt-2 w-full"
+              className="mt-2 w-full accent-brand-500"
             />
           </label>
+
           <label className="text-sm text-slate-700">
-            Your ZIP code (optional)
+            <span className="font-medium">Your ZIP code (where you're starting)</span>
             <input
               value={zipCode}
               onChange={(event) => setZipCode(event.target.value.replace(/\D/g, '').slice(0, 5))}
               placeholder="e.g. 30339"
               inputMode="numeric"
               maxLength={5}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="field-base"
             />
             <p className="mt-1 text-xs text-slate-500">
               {zipCode.length === 0
-                ? 'Add ZIP code to sort by nearest wineries.'
+                ? 'Optional, but helpful if you want nearest-first recommendations.'
                 : zipCode.length < 5
-                  ? 'Enter all 5 digits.'
+                  ? 'Great start — add all 5 digits.'
                   : zipLookupStatus === 'loading'
-                    ? 'Checking ZIP and calculating distances...'
+                    ? "Perfect, we're checking distances now..."
                     : zipLookupStatus === 'error'
-                      ? 'ZIP lookup failed. Please verify and try again.'
+                      ? "Hmm, that ZIP didn't work. Try another one?"
                       : 'Sorted by distance (nearest first).'}
             </p>
           </label>
         </div>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2">
         {filtered.map((winery) => (
           <Card
             key={winery.id}
@@ -228,18 +232,16 @@ export function HomePage(): JSX.Element {
                 {winery.outsideFoodCost !== 'N/A' ? ` (${winery.outsideFoodCost})` : ''}
               </p>
               <p>
-                <strong>Phone:</strong> <a href={`tel:${winery.phone}`}>{winery.phone}</a>
+                <strong>Phone:</strong>{' '}
+                <a href={`tel:${winery.phone}`} className="link-accent">
+                  {winery.phone}
+                </a>
               </p>
-              <div className="flex gap-3">
-                <a
-                  href={winery.website}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-brand-700"
-                >
+              <div className="flex gap-4">
+                <a href={winery.website} target="_blank" rel="noreferrer" className="link-accent">
                   Website
                 </a>
-                <a href={winery.maps} target="_blank" rel="noreferrer" className="text-brand-700">
+                <a href={winery.maps} target="_blank" rel="noreferrer" className="link-accent">
                   Map
                 </a>
               </div>
@@ -255,7 +257,7 @@ export function HomePage(): JSX.Element {
       ) : null}
 
       <Card title="Plan your date route" description="Save favorites and build a date-night plan.">
-        <Link to="/dashboard" className="text-sm font-semibold text-brand-700">
+        <Link to="/dashboard" className="link-accent text-sm">
           Open planner
         </Link>
       </Card>
