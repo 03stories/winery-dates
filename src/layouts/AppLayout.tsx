@@ -4,7 +4,7 @@ import { appConfig } from '@/config/env';
 export function AppLayout(): JSX.Element {
   return (
     <div className="min-h-screen text-slate-900">
-      <header className="border-b border-brand-100/70 bg-white/80 backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b border-brand-100/70 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
           <Link
             to="/"

@@ -141,20 +141,21 @@ export function HomePage(): JSX.Element {
     <div className="space-y-6">
       <Card
         title="Find a winery for date night"
-        description="A cozy Georgia winery directory with ratings, policies, and quick trip planning."
+        description="Tell us your vibe and we'll help you discover a perfect Georgia wine stop."
       >
-        <div className="grid gap-4 sm:grid-cols-4">
-          <label className="text-sm font-medium text-slate-700">
-            Search
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="text-sm text-slate-700">
+            <span className="font-medium">I'm in the mood for a place around</span>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Name, city, or address"
+              placeholder="Dahlonega, Atlanta, terrace, etc."
               className="field-base"
             />
           </label>
-          <label className="text-sm font-medium text-slate-700">
-            Outside food
+
+          <label className="text-sm text-slate-700">
+            <span className="font-medium">Please show wineries where outside food is</span>
             <select
               value={outsideFood}
               onChange={(event) =>
@@ -167,8 +168,10 @@ export function HomePage(): JSX.Element {
               <option>Restricted</option>
             </select>
           </label>
-          <label className="text-sm font-medium text-slate-700">
-            Minimum rating ({minRating.toFixed(1)}+)
+
+          <label className="text-sm text-slate-700">
+            <span className="font-medium">Keep the quality at least</span>
+            <p className="mt-1 text-xs text-slate-500">{minRating.toFixed(1)} stars and up</p>
             <input
               type="range"
               min={4.0}
@@ -176,11 +179,12 @@ export function HomePage(): JSX.Element {
               step={0.1}
               value={minRating}
               onChange={(event) => setMinRating(Number(event.target.value))}
-              className="mt-3 w-full accent-brand-500"
+              className="mt-2 w-full accent-brand-500"
             />
           </label>
-          <label className="text-sm font-medium text-slate-700">
-            Your ZIP code (optional)
+
+          <label className="text-sm text-slate-700">
+            <span className="font-medium">Your ZIP code (where you're starting)</span>
             <input
               value={zipCode}
               onChange={(event) => setZipCode(event.target.value.replace(/\D/g, '').slice(0, 5))}
@@ -191,13 +195,13 @@ export function HomePage(): JSX.Element {
             />
             <p className="mt-1 text-xs text-slate-500">
               {zipCode.length === 0
-                ? 'Add ZIP code to sort by nearest wineries.'
+                ? 'Optional, but helpful if you want nearest-first recommendations.'
                 : zipCode.length < 5
-                  ? 'Enter all 5 digits.'
+                  ? 'Great start — add all 5 digits.'
                   : zipLookupStatus === 'loading'
-                    ? 'Checking ZIP and calculating distances...'
+                    ? "Perfect, we're checking distances now..."
                     : zipLookupStatus === 'error'
-                      ? 'ZIP lookup failed. Please verify and try again.'
+                      ? "Hmm, that ZIP didn't work. Try another one?"
                       : 'Sorted by distance (nearest first).'}
             </p>
           </label>
