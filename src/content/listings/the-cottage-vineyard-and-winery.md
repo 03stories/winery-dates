@@ -1,6 +1,5 @@
 ---
 title: 'The Cottage Vineyard & Winery'
-slug: 'the-cottage-vineyard-and-winery'
 category: 'Wineries'
 city: 'Cleveland'
 description: 'Explore tastings and experiences at The Cottage Vineyard & Winery in Cleveland, Georgia.'

@@ -1,6 +1,5 @@
 ---
 title: 'Habersham Winery'
-slug: 'habersham-winery'
 category: 'Wineries'
 city: 'Helen'
 description: 'Explore tastings and experiences at Habersham Winery in Helen, Georgia.'

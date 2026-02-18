@@ -1,6 +1,5 @@
 ---
 title: 'Bear Claw Vineyards'
-slug: 'bear-claw-vineyards'
 category: 'Wineries'
 city: 'Blue Ridge'
 description: 'Explore tastings and experiences at Bear Claw Vineyards in Blue Ridge, Georgia.'

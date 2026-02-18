@@ -1,6 +1,5 @@
 ---
 title: 'Paradise Hills Winery Resort & Spa'
-slug: 'paradise-hills-winery-resort-and-spa'
 category: 'Wineries'
 city: 'Blairsville'
 description: 'Explore tastings and experiences at Paradise Hills Winery Resort & Spa in Blairsville, Georgia.'

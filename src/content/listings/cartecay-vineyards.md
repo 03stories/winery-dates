@@ -1,6 +1,5 @@
 ---
 title: 'Cartecay Vineyards'
-slug: 'cartecay-vineyards'
 category: 'Wineries'
 city: 'Ellijay'
 description: 'Explore tastings and experiences at Cartecay Vineyards in Ellijay, Georgia.'

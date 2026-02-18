@@ -1,6 +1,5 @@
 ---
 title: 'Wolf Mountain Vineyards & Winery'
-slug: 'wolf-mountain-vineyards-and-winery'
 category: 'Wineries'
 city: 'Dahlonega'
 description: 'Explore tastings and experiences at Wolf Mountain Vineyards & Winery in Dahlonega, Georgia.'

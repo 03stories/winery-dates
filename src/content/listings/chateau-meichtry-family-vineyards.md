@@ -1,6 +1,5 @@
 ---
 title: 'Chateau Meichtry Family Vineyards'
-slug: 'chateau-meichtry-family-vineyards'
 category: 'Wineries'
 city: 'Talking Rock'
 description: 'Explore tastings and experiences at Chateau Meichtry Family Vineyards in Talking Rock, Georgia.'

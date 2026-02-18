@@ -1,6 +1,5 @@
 ---
 title: 'Georgia Winery'
-slug: 'georgia-winery'
 category: 'Wineries'
 city: 'Ringgold'
 description: 'Explore tastings and experiences at Georgia Winery in Ringgold, Georgia.'

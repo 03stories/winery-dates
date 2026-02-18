@@ -1,6 +1,5 @@
 ---
 title: 'Tiger Mountain Vineyards'
-slug: 'tiger-mountain-vineyards'
 category: 'Wineries'
 city: 'Tiger'
 description: 'Explore tastings and experiences at Tiger Mountain Vineyards in Tiger, Georgia.'

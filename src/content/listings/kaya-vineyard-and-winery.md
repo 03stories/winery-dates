@@ -1,6 +1,5 @@
 ---
 title: 'Kaya Vineyard & Winery'
-slug: 'kaya-vineyard-and-winery'
 category: 'Wineries'
 city: 'Dahlonega'
 description: 'Explore tastings and experiences at Kaya Vineyard & Winery in Dahlonega, Georgia.'
