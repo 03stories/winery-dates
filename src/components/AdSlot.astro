@@ -1,0 +1,28 @@
+---
+import { ADS_ENABLED } from '../config/site';
+
+interface Props {
+  slotName: string;
+  position: string;
+}
+
+const { slotName, position } = Astro.props;
+---
+
+{ADS_ENABLED && (
+  <div class="ad-slot" data-slot-name={slotName} data-position={position}>
+    Ad slot: {slotName} ({position})
+  </div>
+)}
+
+<style>
+  .ad-slot {
+    border: 1px dashed #94a3b8;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+</style>

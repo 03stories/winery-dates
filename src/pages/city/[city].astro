@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import ListingCard from '../../components/ListingCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { denormalizeTaxonomyValue, normalizeTaxonomyValue } from '../../utils/listing';
+
+export async function getStaticPaths() {
+  const listings = await getCollection('listings');
+  const cities = [...new Set(listings.map((listing) => listing.data.city))];
+
+  return cities.map((city) => ({ params: { city: normalizeTaxonomyValue(city) }, props: { city } }));
+}
+
+const { city } = Astro.props;
+const listings = (await getCollection('listings')).filter((listing) => listing.data.city === city);
+const heading = denormalizeTaxonomyValue(Astro.params.city || '');
+---
+
+<BaseLayout title={`City: ${heading}`} description={`Browse listings in ${heading}.`}>
+  <h1>{heading}</h1>
+  <p>{listings.length} listings</p>
+  {listings.map((listing) => <ListingCard listing={listing} />)}
+</BaseLayout>

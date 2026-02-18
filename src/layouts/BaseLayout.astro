@@ -1,0 +1,84 @@
+---
+import { ADS_ENABLED, ADSENSE_CLIENT_ID, toBasePath, toCanonical } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = toCanonical(Astro.url.pathname);
+const fullTitle = `${title} | Winery Dates Directory`;
+const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    {shouldLoadAds && (
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+        crossorigin="anonymous"
+      ></script>
+    )}
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href={toBasePath('/')}>Home</a>
+        <a href={toBasePath('/categories')}>Categories</a>
+        <a href={toBasePath('/cities')}>Cities</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>© {new Date().getFullYear()} Winery Dates Directory</p>
+      <ul>
+        <li><a href={toBasePath('/about')}>About</a></li>
+        <li><a href={toBasePath('/contact')}>Contact</a></li>
+        <li><a href={toBasePath('/privacy-policy')}>Privacy Policy</a></li>
+        <li><a href={toBasePath('/terms')}>Terms</a></li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(body) {
+    font-family: Inter, system-ui, sans-serif;
+    margin: 0;
+    color: #1f2937;
+    background: #f8fafc;
+  }
+  header,
+  main,
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  nav a {
+    text-decoration: none;
+    color: #1d4ed8;
+  }
+  footer ul {
+    padding-left: 1.2rem;
+  }
+</style>
