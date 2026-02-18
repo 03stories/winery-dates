@@ -7,7 +7,7 @@ export function AppLayout(): JSX.Element {
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
           <Link to="/" className="text-lg font-bold text-brand-700">
-            Web App Template
+            Winery Dates
           </Link>
           <nav className="flex items-center gap-4 text-sm font-medium">
             <NavLink
@@ -15,13 +15,13 @@ export function AppLayout(): JSX.Element {
               end
               className={({ isActive }) => (isActive ? 'text-brand-700' : 'text-slate-600')}
             >
-              Home
+              Directory
             </NavLink>
             <NavLink
               to="/dashboard"
               className={({ isActive }) => (isActive ? 'text-brand-700' : 'text-slate-600')}
             >
-              Dashboard
+              Planner
             </NavLink>
           </nav>
         </div>
@@ -31,7 +31,7 @@ export function AppLayout(): JSX.Element {
       </main>
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-4 text-xs text-slate-500 sm:px-6">
-          Base path: <code>{appConfig.basePath}</code>
+          Winery Dates • Base path: <code>{appConfig.basePath}</code>
         </div>
       </footer>
     </div>
