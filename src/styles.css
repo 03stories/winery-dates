@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-brand-50: 239 246 255;
+  --color-brand-500: 37 99 235;
+  --color-brand-700: 29 78 216;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+code {
+  border-radius: 0.25rem;
+  background-color: rgb(241 245 249);
+  padding: 0.1rem 0.35rem;
+}

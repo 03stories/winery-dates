@@ -1,0 +1,69 @@
+name: Deploy Pages (Prod)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-prod
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Resolve base path
+        id: base
+        env:
+          RAW_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          raw="$RAW_BASE_PATH"
+          if [ -z "$raw" ]; then
+            raw="/$REPO_NAME/"
+          fi
+
+          case "$raw" in
+            /*) ;;
+            *) raw="/$raw" ;;
+          esac
+
+          case "$raw" in
+            */) ;;
+            *) raw="$raw/" ;;
+          esac
+
+          normalized=$(echo "$raw" | sed -E 's:/+:/:g')
+          echo "vite_base_path=$normalized" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_BASE_PATH: ${{ steps.base.outputs.vite_base_path }}
+        run: npm run build
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          clean: true
+          clean-exclude: |
+            pr-preview/

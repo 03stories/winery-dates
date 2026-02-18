@@ -1,0 +1,90 @@
+name: Deploy Pages (PR Preview)
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pages-pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Resolve preview base path
+        id: base
+        env:
+          RAW_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          raw="$RAW_BASE_PATH"
+          if [ -z "$raw" ]; then
+            raw="/$REPO_NAME/"
+          fi
+
+          case "$raw" in
+            /*) ;;
+            *) raw="/$raw" ;;
+          esac
+
+          case "$raw" in
+            */) ;;
+            *) raw="$raw/" ;;
+          esac
+
+          normalized=$(echo "$raw" | sed -E 's:/+:/:g')
+          preview_path="${normalized}pr-preview/pr-${PR_NUMBER}/"
+          preview_path=$(echo "$preview_path" | sed -E 's:/+:/:g')
+          echo "vite_base_path=$preview_path" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_BASE_PATH: ${{ steps.base.outputs.vite_base_path }}
+        run: npm run build
+
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          wait-for-pages-deployment: true
+
+  delete-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure source dir exists
+        run: mkdir -p dist
+
+      - name: Delete preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          wait-for-pages-deployment: true
