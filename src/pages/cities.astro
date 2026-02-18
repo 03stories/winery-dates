@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../config/site';
 import { normalizeTaxonomyValue } from '../utils/listing';
 
 const listings = await getCollection('listings');
@@ -20,7 +21,7 @@ const cities = Object.entries(cityCounts).sort((a, b) => a[0].localeCompare(b[0]
   <ul>
     {cities.map(([city, count]) => (
       <li>
-        <a href={`/city/${normalizeTaxonomyValue(city)}`}>{city}</a> ({count})
+        <a href={withBase(`/city/${normalizeTaxonomyValue(city)}`)}>{city}</a> ({count})
       </li>
     ))}
   </ul>

@@ -60,6 +60,7 @@ jobs:
       - name: Build
         env:
           VITE_BASE_PATH: ${{ steps.base.outputs.vite_base_path }}
+          SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
         run: npm run build
 
       - name: Deploy preview

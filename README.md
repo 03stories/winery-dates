@@ -78,13 +78,15 @@ To add a listing:
 
 ## GitHub Pages deployment
 
-Workflow: `.github/workflows/deploy.yml`
+Workflows: `.github/workflows/deploy-pages.yml` (production) and `.github/workflows/pr-preview.yml` (PR previews)
 
 1. In GitHub repository settings, open **Pages**.
 2. Set **Source** to **GitHub Actions**.
 3. Push to `main` (or run workflow manually).
 
-The workflow installs deps, builds Astro output, uploads `dist`, and deploys with official Pages actions.
+The production workflow resolves `VITE_BASE_PATH` from repository variable `PAGES_BASE_PATH` (defaults to `/<repo>/`) so production links work under project Pages URLs.
+
+PR previews also build with a base path like `/<repo>/pr-preview/pr-<number>/` to keep preview routing correct.
 
 ## Custom domain setup
 
