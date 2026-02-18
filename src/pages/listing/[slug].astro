@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
+
+export async function getStaticPaths() {
+  const listings = await getCollection('listings');
+  return listings.map((listing) => ({ params: { slug: listing.slug }, props: { listing } }));
+}
+
+const { listing } = Astro.props;
+const allListings = await getCollection('listings');
+const related = allListings.filter(
+  (candidate) =>
+    candidate.slug !== listing.slug &&
+    (candidate.data.category === listing.data.category || candidate.data.city === listing.data.city),
+);
+
+const { Content } = await render(listing);
+
+const listingSchema = {
+  '@context': 'https://schema.org',
+  '@type': listing.data.category.toLowerCase() === 'wineries' ? 'LocalBusiness' : 'Thing',
+  name: listing.data.title,
+  description: listing.data.description,
+  url: listing.data.website,
+  telephone: listing.data.phone,
+  address: listing.data.address,
+  areaServed: listing.data.city,
+};
+---
+
+<BaseLayout title={listing.data.title} description={listing.data.description}>
+  <article>
+    <h1>{listing.data.title}</h1>
+    <p>{listing.data.description}</p>
+    <ul>
+      <li><strong>Category:</strong> {listing.data.category}</li>
+      <li><strong>City:</strong> {listing.data.city}</li>
+      {listing.data.address && <li><strong>Address:</strong> {listing.data.address}</li>}
+      {listing.data.phone && <li><strong>Phone:</strong> {listing.data.phone}</li>}
+      {listing.data.website && (
+        <li>
+          <strong>Website:</strong> <a href={listing.data.website}>{listing.data.website}</a>
+        </li>
+      )}
+    </ul>
+    <Content />
+  </article>
+
+  <AdSlot slotName="listing-inline" position="inline" />
+
+  <section>
+    <h2>Related Listings</h2>
+    {related.length === 0 ? <p>No related listings found.</p> : related.slice(0, 4).map((entry) => <ListingCard listing={entry} />)}
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(listingSchema)}></script>
+</BaseLayout>

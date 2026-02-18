@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { normalizeTaxonomyValue } from '../utils/listing';
+
+const listings = await getCollection('listings');
+const categoryCounts = listings.reduce(
+  (acc, listing) => {
+    acc[listing.data.category] = (acc[listing.data.category] || 0) + 1;
+    return acc;
+  },
+  {} as Record<string, number>,
+);
+
+const categories = Object.entries(categoryCounts).sort((a, b) => a[0].localeCompare(b[0]));
+---
+
+<BaseLayout title="Categories" description="Explore listing categories.">
+  <h1>Categories</h1>
+  <ul>
+    {categories.map(([category, count]) => (
+      <li>
+        <a href={`/category/${normalizeTaxonomyValue(category)}`}>{category}</a> ({count})
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
