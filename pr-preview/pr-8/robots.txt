@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://example.com/sitemap-index.xml
+Sitemap: http://localhost:4321/winery-dates/pr-preview/pr-8/sitemap-index.xml
