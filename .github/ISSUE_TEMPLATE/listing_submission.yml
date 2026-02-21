@@ -1,0 +1,88 @@
+name: Submit a winery listing
+about: Suggest a new winery or update an existing listing for Winery Dates Directory.
+title: '[Listing Submission]: '
+labels: ['listing-submission']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Winery Dates Directory. Please fill out as much detail as you can.
+  - type: input
+    id: listing-name
+    attributes:
+      label: Winery name
+      description: The public business name.
+      placeholder: Example Winery
+    validations:
+      required: true
+  - type: input
+    id: listing-address
+    attributes:
+      label: Address
+      placeholder: 123 Main St, City, GA 30000
+    validations:
+      required: true
+  - type: input
+    id: listing-phone
+    attributes:
+      label: Phone
+      placeholder: (000) 000-0000
+    validations:
+      required: true
+  - type: input
+    id: listing-website
+    attributes:
+      label: Website URL
+      placeholder: https://example.com
+    validations:
+      required: true
+  - type: textarea
+    id: listing-hours
+    attributes:
+      label: Hours
+      description: Include days and times.
+      placeholder: |
+        Monday: Closed
+        Tuesday: 11 AM - 6 PM
+    validations:
+      required: true
+  - type: input
+    id: listing-rating
+    attributes:
+      label: Rating (optional)
+      description: Leave blank if unknown.
+      placeholder: 4.6
+    validations:
+      required: false
+  - type: dropdown
+    id: listing-outside-food
+    attributes:
+      label: Outside food policy
+      options:
+        - Allowed
+        - Not allowed
+        - Unknown
+    validations:
+      required: true
+  - type: input
+    id: listing-outside-food-cost
+    attributes:
+      label: Outside food cost
+      description: Use Free, a dollar amount, or N/A if not allowed.
+      placeholder: Free
+    validations:
+      required: true
+  - type: input
+    id: listing-maps
+    attributes:
+      label: Google Maps URL
+      placeholder: https://maps.google.com/...
+    validations:
+      required: true
+  - type: textarea
+    id: listing-notes
+    attributes:
+      label: Notes
+      description: Anything else we should know?
+    validations:
+      required: false

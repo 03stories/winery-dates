@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SUBMIT_LISTING_URL } from '../config/site';
+
+const hasSubmitListingUrl = Boolean(SUBMIT_LISTING_URL);
+---
+
+<BaseLayout
+  title="Submit a listing"
+  description="Submit a new winery listing using our GitHub issue template."
+>
+  <h1>Submit a listing</h1>
+  <p>
+    Found a winery we should add or update? Use our GitHub issue template so we can review and publish
+    updates quickly.
+  </p>
+
+  {
+    hasSubmitListingUrl ? (
+      <p>
+        <a href={SUBMIT_LISTING_URL} target="_blank" rel="noreferrer">Open the listing submission form</a>
+      </p>
+    ) : (
+      <p>
+        Listing submissions are currently configured through GitHub Issues. Open this repository’s
+        <code> .github/ISSUE_TEMPLATE/listing_submission.yml </code> template and create a new issue.
+      </p>
+    )
+  }
+</BaseLayout>

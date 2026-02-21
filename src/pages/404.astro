@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { toBasePath } from '../config/site';
+---
+
+<BaseLayout title="404" description="Page not found.">
+  <h1>404: Page not found</h1>
+  <p>We couldn’t find that page. Try searching for a winery listing or return home.</p>
+
+  <p>
+    <a href={toBasePath('/search')}>Search listings</a>
+    {' · '}
+    <a href={toBasePath('/')}>Go back home</a>
+  </p>
+</BaseLayout>

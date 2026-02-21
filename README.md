@@ -4,7 +4,7 @@ Static, SEO-friendly directory site built with Astro content collections and dep
 
 ## Requirements
 
-- Node 20 (`.nvmrc`)
+- Node 22 (`.nvmrc`)
 - npm 10+
 
 ## Local development
@@ -30,6 +30,7 @@ Copy `.env.example` to `.env` and adjust values:
 SITE_URL=https://example.com
 PUBLIC_ADS_ENABLED=false
 PUBLIC_ADSENSE_CLIENT_ID=
+PUBLIC_SUBMIT_LISTING_URL=https://github.com/<owner>/<repo>/issues/new?template=listing_submission.yml
 PUBLIC_ADSENSE_PUBLISHER_ID=
 PUBLIC_ADSENSE_SLOT_HOME_TOP=
 PUBLIC_ADSENSE_SLOT_LISTING_INLINE=
@@ -38,6 +39,7 @@ PUBLIC_ADSENSE_SLOT_LISTING_INLINE=
 - `SITE_URL`: used for canonical URLs, robots sitemap URL, and sitemap generation.
 - `PUBLIC_ADS_ENABLED`: set to `true` to render AdSense containers and load the AdSense script.
 - `PUBLIC_ADSENSE_CLIENT_ID`: AdSense client ID (`ca-pub-...`) loaded only when ads are enabled.
+- `PUBLIC_SUBMIT_LISTING_URL`: URL to the GitHub issue template used by the "Submit a listing" flow.
 - `PUBLIC_ADSENSE_PUBLISHER_ID`: publisher ID (`pub-...`) used by `/ads.txt`; defaults to `PUBLIC_ADSENSE_CLIENT_ID` without `ca-` when omitted.
 - `PUBLIC_ADSENSE_SLOT_HOME_TOP`: AdSense slot ID used by the home page top ad placement.
 - `PUBLIC_ADSENSE_SLOT_LISTING_INLINE`: AdSense slot ID used by listing detail inline ad placement.
@@ -79,7 +81,12 @@ To add a listing:
 - `/category/[category]` category index pages
 - `/city/[city]` city index pages
 - `/categories` and `/cities` taxonomy landing pages
-- `/about`, `/contact`, `/privacy-policy`, `/terms`
+- `/search` powered by Pagefind full-text search
+- `/about`, `/contact`, `/submit-listing`, `/privacy-policy`, `/terms`, `/404`
+
+## Search
+
+Pagefind is generated as part of `npm run build` and outputs static search assets to `dist/pagefind`.
 
 ## SEO defaults
 

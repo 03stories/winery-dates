@@ -5,6 +5,7 @@ export const SITE_URL = rawSiteUrl.endsWith('/') ? rawSiteUrl.slice(0, -1) : raw
 export const BASE_URL = rawBaseUrl.endsWith('/') ? rawBaseUrl : `${rawBaseUrl}/`;
 export const ADS_ENABLED = import.meta.env.PUBLIC_ADS_ENABLED === 'true';
 export const ADSENSE_CLIENT_ID = (import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || '').trim();
+export const SUBMIT_LISTING_URL = (import.meta.env.PUBLIC_SUBMIT_LISTING_URL || '').trim();
 export const ADSENSE_PUBLISHER_ID = (
   import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID || ADSENSE_CLIENT_ID.replace(/^ca-/, '')
 ).trim();
