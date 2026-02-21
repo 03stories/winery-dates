@@ -35,7 +35,11 @@ jobs:
         run: |
           raw="$RAW_BASE_PATH"
           if [ -z "$raw" ]; then
-            raw="/$REPO_NAME/"
+            if [ -f "public/CNAME" ]; then
+              raw="/"
+            else
+              raw="/$REPO_NAME/"
+            fi
           fi
 
           case "$raw" in
