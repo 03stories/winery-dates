@@ -28,6 +28,21 @@ const pagefindBase = toBasePath('/');
         resetStyles: false,
         autofocus: true,
       });
+
+      const initialQuery = new URL(window.location.href).searchParams.get('q')?.trim();
+      if (!initialQuery) {
+        return;
+      }
+
+      window.requestAnimationFrame(() => {
+        const input = document.querySelector('#search .pagefind-ui__search-input');
+        if (!(input instanceof HTMLInputElement)) {
+          return;
+        }
+
+        input.value = initialQuery;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
     });
   </script>
   <script src={toBasePath('/pagefind/pagefind-ui.js')} defer></script>

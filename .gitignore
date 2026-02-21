@@ -12,6 +12,7 @@ coverage/
 
 # tooling
 .vite/
+.astro/
 .DS_Store
 *.log
 

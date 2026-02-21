@@ -4,7 +4,7 @@ Static, SEO-friendly directory site built with Astro content collections and dep
 
 ## Requirements
 
-- Node 20 (`.nvmrc`)
+- Node 22 (`.nvmrc`)
 - npm 10+
 
 ## Local development

@@ -2,12 +2,14 @@
 import { getCollection } from 'astro:content';
 import ListingCard from '../components/ListingCard.astro';
 import AdSlot from '../components/AdSlot.astro';
+import { toBasePath } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const listings = (await getCollection('listings')).sort(
   (a, b) => new Date(b.data.updated ?? 0).getTime() - new Date(a.data.updated ?? 0).getTime(),
 );
 const featured = listings.filter((listing) => listing.data.featured);
+const searchPath = toBasePath('/search');
 ---
 
 <BaseLayout
@@ -16,6 +18,27 @@ const featured = listings.filter((listing) => listing.data.featured);
 >
   <h1>Winery Dates Directory</h1>
   <p>A focused local directory for date-night winery spots, tours, and nearby planning services.</p>
+  <form action={searchPath} method="get" class="home-search" role="search" aria-label="Search listings">
+    <label for="home-search-input">Search listings</label>
+    <div class="home-search-controls">
+      <input
+        id="home-search-input"
+        name="q"
+        type="search"
+        placeholder="Try a winery name, city, or category"
+        autocomplete="off"
+      />
+      <button type="submit" aria-label="Search listings">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M10.5 3.5a7 7 0 0 1 5.56 11.25l4.35 4.34a1 1 0 0 1-1.42 1.42l-4.34-4.35A7 7 0 1 1 10.5 3.5Zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        <span class="sr-only">Search</span>
+      </button>
+    </div>
+  </form>
 
   <AdSlot slotName="home-top" position="top" />
 
@@ -29,3 +52,90 @@ const featured = listings.filter((listing) => listing.data.featured);
     {listings.map((listing) => <ListingCard listing={listing} />)}
   </section>
 </BaseLayout>
+
+<style>
+  .home-search {
+    margin: 1rem 0 1.5rem;
+    max-width: 720px;
+  }
+
+  .home-search label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .home-search-controls {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .home-search input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font: inherit;
+  }
+
+  .home-search input:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 1px;
+    border-color: #2563eb;
+  }
+
+  .home-search button {
+    border: 1px solid #1d4ed8;
+    background: #1d4ed8;
+    color: #fff;
+    border-radius: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .home-search button:hover {
+    background: #1e40af;
+    border-color: #1e40af;
+  }
+
+  .home-search button:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  .home-search button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .home-search-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .home-search button {
+      width: 100%;
+    }
+  }
+</style>
