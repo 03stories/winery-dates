@@ -14,5 +14,20 @@
         resetStyles: false,
         autofocus: true,
       });
+
+      const initialQuery = new URL(window.location.href).searchParams.get('q')?.trim();
+      if (!initialQuery) {
+        return;
+      }
+
+      window.requestAnimationFrame(() => {
+        const input = document.querySelector('#search .pagefind-ui__search-input');
+        if (!(input instanceof HTMLInputElement)) {
+          return;
+        }
+
+        input.value = initialQuery;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
     });
   })();</script> <script src="/winery-dates/pr-preview/pr-9/pagefind/pagefind-ui.js" defer></script>  </main> <footer data-astro-cid-37fxchfa> <p data-astro-cid-37fxchfa>© 2026 Winery Dates Directory</p> <ul data-astro-cid-37fxchfa> <li data-astro-cid-37fxchfa><a href="/winery-dates/pr-preview/pr-9/about" data-astro-cid-37fxchfa>About</a></li> <li data-astro-cid-37fxchfa><a href="/winery-dates/pr-preview/pr-9/contact" data-astro-cid-37fxchfa>Contact</a></li> <li data-astro-cid-37fxchfa><a href="/winery-dates/pr-preview/pr-9/submit-listing" data-astro-cid-37fxchfa>Submit a listing</a></li> <li data-astro-cid-37fxchfa><a href="/winery-dates/pr-preview/pr-9/search" data-astro-cid-37fxchfa>Search</a></li> <li data-astro-cid-37fxchfa><a href="/winery-dates/pr-preview/pr-9/privacy-policy" data-astro-cid-37fxchfa>Privacy Policy</a></li> <li data-astro-cid-37fxchfa><a href="/winery-dates/pr-preview/pr-9/terms" data-astro-cid-37fxchfa>Terms</a></li> </ul> </footer> </body></html> 
