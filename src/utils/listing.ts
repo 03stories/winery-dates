@@ -1,5 +1,10 @@
 export function normalizeTaxonomyValue(value: string) {
-  return value.trim().toLowerCase().replace(/\s+/g, '-');
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, ' ')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 }
 
 export function denormalizeTaxonomyValue(value: string) {
