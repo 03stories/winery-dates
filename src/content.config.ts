@@ -12,6 +12,8 @@ const listings = defineCollection({
     address: z.string().optional(),
     hours: z.string().optional(),
     rating: z.coerce.number().optional(),
+    priceRange: z.enum(['$', '$$', '$$$']).optional(),
+    bestFor: z.array(z.string()).default([]),
     outsideFoodPolicy: z.string().optional(),
     outsideFoodCost: z.string().optional(),
     maps: z.string().optional(),
