@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import AdSlot from '../../components/AdSlot.astro';
+import { toCanonical } from '../../config/site';
 
 export async function getStaticPaths() {
   const listings = await getCollection('listings');
@@ -18,15 +19,38 @@ const related = allListings.filter(
 );
 
 const { Content } = await render(listing);
+const canonical = toCanonical(Astro.url.pathname);
+
+function toPostalAddress(address?: string, city?: string) {
+  if (!address) {
+    return undefined;
+  }
+
+  const [streetAddress, ...rest] = address.split(',').map((part) => part.trim());
+  const cityFromAddress = rest[0] || city;
+  const stateZip = rest[1] || '';
+  const match = stateZip.match(/^(?<state>[A-Z]{2})\s*(?<postalCode>\d{5}(?:-\d{4})?)?$/);
+
+  return {
+    '@type': 'PostalAddress',
+    streetAddress,
+    addressLocality: cityFromAddress,
+    addressRegion: match?.groups?.state,
+    postalCode: match?.groups?.postalCode,
+    addressCountry: 'US',
+  };
+}
 
 const listingSchema = {
   '@context': 'https://schema.org',
   '@type': listing.data.category.toLowerCase() === 'wineries' ? 'LocalBusiness' : 'Thing',
   name: listing.data.title,
   description: listing.data.description,
-  url: listing.data.website,
+  url: canonical,
+  sameAs: listing.data.website,
+  mainEntityOfPage: canonical,
   telephone: listing.data.phone,
-  address: listing.data.address,
+  address: toPostalAddress(listing.data.address, listing.data.city),
   areaServed: listing.data.city,
   priceRange: listing.data.priceRange,
   keywords: listing.data.bestFor.join(', '),

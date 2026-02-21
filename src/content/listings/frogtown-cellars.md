@@ -1,6 +1,5 @@
 ---
 title: 'Frogtown Cellars'
-slug: 'frogtown-cellars'
 category: 'Wineries'
 city: 'Dahlonega'
 description: 'Explore tastings and experiences at Frogtown Cellars in Dahlonega, Georgia.'

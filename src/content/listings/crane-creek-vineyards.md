@@ -1,6 +1,5 @@
 ---
 title: 'Crane Creek Vineyards'
-slug: 'crane-creek-vineyards'
 category: 'Wineries'
 city: 'Young Harris'
 description: 'Explore tastings and experiences at Crane Creek Vineyards in Young Harris, Georgia.'

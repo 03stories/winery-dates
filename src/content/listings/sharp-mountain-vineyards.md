@@ -1,6 +1,5 @@
 ---
 title: 'Sharp Mountain Vineyards'
-slug: 'sharp-mountain-vineyards'
 category: 'Wineries'
 city: 'Jasper'
 description: 'Explore tastings and experiences at Sharp Mountain Vineyards in Jasper, Georgia.'

@@ -1,6 +1,5 @@
 ---
 title: 'Engelheim Vineyards'
-slug: 'engelheim-vineyards'
 category: 'Wineries'
 city: 'Ellijay'
 description: 'Explore tastings and experiences at Engelheim Vineyards in Ellijay, Georgia.'

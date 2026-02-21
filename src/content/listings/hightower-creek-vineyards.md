@@ -1,6 +1,5 @@
 ---
 title: 'Hightower Creek Vineyards'
-slug: 'hightower-creek-vineyards'
 category: 'Wineries'
 city: 'Hiawassee'
 description: 'Explore tastings and experiences at Hightower Creek Vineyards in Hiawassee, Georgia.'
