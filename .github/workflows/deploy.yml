@@ -64,6 +64,13 @@ jobs:
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
           site_url="$RAW_SITE_URL"
+          if [ -z "$site_url" ] && [ -f "public/CNAME" ]; then
+            cname=$(head -n 1 public/CNAME | tr -d '\r' | xargs)
+            if [ -n "$cname" ]; then
+              site_url="https://$cname"
+            fi
+          fi
+
           if [ -z "$site_url" ]; then
             site_url="https://$REPO_OWNER.github.io/$REPO_NAME"
           fi
