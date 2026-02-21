@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { toBasePath } from '../config/site';
+import { normalizeTaxonomyValue } from '../utils/listing';
 
 interface Props {
   listing: CollectionEntry<'listings'>;
@@ -14,12 +15,23 @@ const { listing } = Astro.props;
   <p>{listing.data.description}</p>
   <p>
     <strong>Category:</strong>
-    <a href={toBasePath(`/category/${listing.data.category.toLowerCase().replace(/\s+/g, '-')}`)}>{listing.data.category}</a>
+    <a href={toBasePath(`/category/${normalizeTaxonomyValue(listing.data.category)}`)}>{listing.data.category}</a>
   </p>
   <p>
     <strong>City:</strong>
-    <a href={toBasePath(`/city/${listing.data.city.toLowerCase().replace(/\s+/g, '-')}`)}>{listing.data.city}</a>
+    <a href={toBasePath(`/city/${normalizeTaxonomyValue(listing.data.city)}`)}>{listing.data.city}</a>
   </p>
+
+  {listing.data.priceRange && (
+    <p>
+      <strong>Price:</strong> {listing.data.priceRange}
+    </p>
+  )}
+  {listing.data.bestFor.length > 0 && (
+    <p>
+      <strong>Best for:</strong> {listing.data.bestFor.join(', ')}
+    </p>
+  )}
 </article>
 
 <style>

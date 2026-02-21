@@ -18,9 +18,38 @@ export function getAdSlotId(slotName: string) {
   return slotIdsByName[slotName] || '';
 }
 
-export function toCanonical(path: string) {
+function normalizeBasePath(pathname: string) {
+  if (!pathname || pathname === '/') return '/';
+
+  const withLeadingSlash = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const withTrailingSlash = withLeadingSlash.endsWith('/')
+    ? withLeadingSlash
+    : `${withLeadingSlash}/`;
+
+  return withTrailingSlash.replace(/\/{2,}/g, '/');
+}
+
+export function buildCanonical(path: string, siteUrl: string, baseUrl: string) {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${SITE_URL}${normalizedPath}`;
+  const normalizedSiteUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+  const siteBasePath = normalizeBasePath(new URL(normalizedSiteUrl).pathname);
+  const canonicalBasePath = siteBasePath === '/' ? normalizeBasePath(baseUrl) : siteBasePath;
+
+  let pathWithoutBase = normalizedPath;
+  if (canonicalBasePath !== '/' && normalizedPath.startsWith(canonicalBasePath)) {
+    pathWithoutBase = normalizedPath.slice(canonicalBasePath.length - 1);
+  }
+
+  const relativePath = pathWithoutBase.startsWith('/') ? pathWithoutBase.slice(1) : pathWithoutBase;
+
+  const canonicalPath =
+    canonicalBasePath === '/' ? `/${relativePath}` : `${canonicalBasePath}${relativePath}`;
+
+  return `${new URL(normalizedSiteUrl).origin}${canonicalPath}`;
+}
+
+export function toCanonical(path: string) {
+  return buildCanonical(path, SITE_URL, BASE_URL);
 }
 
 export function toBasePath(path: string) {

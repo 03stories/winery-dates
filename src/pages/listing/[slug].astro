@@ -28,6 +28,8 @@ const listingSchema = {
   telephone: listing.data.phone,
   address: listing.data.address,
   areaServed: listing.data.city,
+  priceRange: listing.data.priceRange,
+  keywords: listing.data.bestFor.join(', '),
 };
 ---
 
@@ -42,6 +44,8 @@ const listingSchema = {
       {listing.data.phone && <li><strong>Phone:</strong> {listing.data.phone}</li>}
       {listing.data.hours && <li><strong>Hours:</strong> {listing.data.hours}</li>}
       {listing.data.rating !== undefined && <li><strong>Rating:</strong> {listing.data.rating}</li>}
+      {listing.data.priceRange && <li><strong>Price range:</strong> {listing.data.priceRange}</li>}
+      {listing.data.bestFor.length > 0 && <li><strong>Best for:</strong> {listing.data.bestFor.join(', ')}</li>}
       {listing.data.outsideFoodPolicy && (
         <li><strong>Outside food policy:</strong> {listing.data.outsideFoodPolicy}</li>
       )}
