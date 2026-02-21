@@ -1,6 +1,5 @@
 ---
 title: 'Currahee Vineyard & Winery'
-slug: 'currahee-vineyard-and-winery'
 category: 'Wineries'
 city: 'Toccoa'
 description: 'Explore tastings and experiences at Currahee Vineyard & Winery in Toccoa, Georgia.'

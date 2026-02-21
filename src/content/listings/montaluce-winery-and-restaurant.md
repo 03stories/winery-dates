@@ -1,6 +1,5 @@
 ---
 title: 'Montaluce Winery & Restaurant'
-slug: 'montaluce-winery-and-restaurant'
 category: 'Wineries'
 city: 'Dahlonega'
 description: 'Explore tastings and experiences at Montaluce Winery & Restaurant in Dahlonega, Georgia.'

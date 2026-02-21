@@ -1,6 +1,5 @@
 ---
 title: 'CeNita Vineyards'
-slug: 'cenita-vineyards'
 category: 'Wineries'
 city: 'Cleveland'
 description: 'Explore tastings and experiences at CeNita Vineyards in Cleveland, Georgia.'

@@ -1,6 +1,5 @@
 ---
 title: 'Yonah Mountain Vineyards'
-slug: 'yonah-mountain-vineyards'
 category: 'Wineries'
 city: 'Cleveland'
 description: 'Explore tastings and experiences at Yonah Mountain Vineyards in Cleveland, Georgia.'

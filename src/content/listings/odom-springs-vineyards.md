@@ -1,6 +1,5 @@
 ---
 title: 'Odom Springs Vineyards'
-slug: 'odom-springs-vineyards'
 category: 'Wineries'
 city: 'Blairsville'
 description: 'Explore tastings and experiences at Odom Springs Vineyards in Blairsville, Georgia.'

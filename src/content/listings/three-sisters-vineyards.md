@@ -1,6 +1,5 @@
 ---
 title: 'Three Sisters Vineyards'
-slug: 'three-sisters-vineyards'
 category: 'Wineries'
 city: 'Dahlonega'
 description: 'Explore tastings and experiences at Three Sisters Vineyards in Dahlonega, Georgia.'

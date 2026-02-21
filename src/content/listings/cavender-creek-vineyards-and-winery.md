@@ -1,6 +1,5 @@
 ---
 title: 'Cavender Creek Vineyards & Winery'
-slug: 'cavender-creek-vineyards-and-winery'
 category: 'Wineries'
 city: 'Dahlonega'
 description: 'Explore tastings and experiences at Cavender Creek Vineyards & Winery in Dahlonega, Georgia.'

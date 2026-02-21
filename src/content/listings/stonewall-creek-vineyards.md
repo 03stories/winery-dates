@@ -1,6 +1,5 @@
 ---
 title: 'Stonewall Creek Vineyards'
-slug: 'stonewall-creek-vineyards'
 category: 'Wineries'
 city: 'Tiger'
 description: 'Explore tastings and experiences at Stonewall Creek Vineyards in Tiger, Georgia.'

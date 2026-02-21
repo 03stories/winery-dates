@@ -1,6 +1,5 @@
 ---
 title: 'Boutier Winery'
-slug: 'boutier-winery'
 category: 'Wineries'
 city: 'Danielsville'
 description: 'Explore tastings and experiences at Boutier Winery in Danielsville, Georgia.'

@@ -1,6 +1,5 @@
 ---
 title: 'Chateau Elan Winery & Resort'
-slug: 'chateau-elan-winery-and-resort'
 category: 'Wineries'
 city: 'Braselton'
 description: 'Explore tastings and experiences at Chateau Elan Winery & Resort in Braselton, Georgia.'
