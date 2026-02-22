@@ -1,0 +1,55 @@
+name: Weekly listings data refresh
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run weekly listing automation
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          DISCOVERY_DEFAULT_STATE: ${{ vars.DISCOVERY_DEFAULT_STATE || 'GA' }}
+        run: |
+          npm run data:weekly | tee weekly-data-summary.txt
+
+      - name: Build PR body
+        run: |
+          {
+            echo "## Automated weekly listings refresh"
+            echo
+            echo "This PR was created automatically by \`.github/workflows/weekly-data-refresh.yml\`."
+            echo
+            echo "### Script output"
+            echo
+            echo '```text'
+            cat weekly-data-summary.txt
+            echo '```'
+          } > weekly-data-pr-body.md
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/weekly-listings-refresh
+          commit-message: 'chore(data): weekly listings refresh'
+          title: 'chore(data): weekly listings refresh'
+          body-path: weekly-data-pr-body.md

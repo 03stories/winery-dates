@@ -17,7 +17,11 @@
     "format:check": "prettier . --check",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "data:validate": "node scripts/validate_listings.mjs",
+    "data:refresh": "node scripts/refresh_listings.mjs",
+    "data:discover": "node scripts/discover_new_listings.mjs",
+    "data:weekly": "npm run data:refresh && npm run data:discover && npm run data:validate"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
