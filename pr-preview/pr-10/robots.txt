@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://localhost:4321/winery-dates/pr-preview/pr-10/sitemap-index.xml
