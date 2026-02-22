@@ -4,6 +4,7 @@ const listings = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    slug: z.string().optional(),
     category: z.string(),
     city: z.string(),
     description: z.string(),
@@ -17,6 +18,11 @@ const listings = defineCollection({
     outsideFoodPolicy: z.string().optional(),
     outsideFoodCost: z.string().optional(),
     maps: z.string().optional(),
+    mapsPlaceUrl: z.string().optional(),
+    googlePlaceId: z.string().optional(),
+    lastVerified: z.string().optional(),
+    status: z.enum(['active', 'closed']).default('active'),
+    source: z.string().optional(),
     featured: z.boolean().default(false),
     updated: z.coerce.date().optional()
   })

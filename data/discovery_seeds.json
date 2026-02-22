@@ -1,0 +1,9 @@
+{
+  "seeds": [
+    { "name": "Atlanta", "lat": 33.749, "lng": -84.388, "radiusMeters": 50000 },
+    { "name": "Dahlonega", "lat": 34.5261, "lng": -83.9841, "radiusMeters": 30000 },
+    { "name": "Helen", "lat": 34.7037, "lng": -83.7293, "radiusMeters": 30000 },
+    { "name": "Blue Ridge", "lat": 34.8631, "lng": -84.3241, "radiusMeters": 30000 }
+  ],
+  "keywords": ["winery", "vineyard", "wine tasting"]
+}
