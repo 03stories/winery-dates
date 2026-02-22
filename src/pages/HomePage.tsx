@@ -8,7 +8,7 @@ const moodPresets = [
   { label: 'Mountain views', value: 'mountain' },
   { label: 'Patio sunset', value: 'patio' },
   { label: 'Restaurant pairing', value: 'restaurant' },
-  { label: 'North Georgia', value: 'ga' }
+  { label: 'Atlanta metro', value: 'atlanta' }
 ] as const;
 
 export function HomePage(): JSX.Element {
@@ -200,7 +200,7 @@ export function HomePage(): JSX.Element {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Dahlonega, Atlanta, mountain view, terrace..."
+              placeholder="Atlanta, Augusta, mountain view, terrace..."
               className="field-base"
             />
           </label>
