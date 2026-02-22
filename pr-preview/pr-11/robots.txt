@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://localhost:4321/pr-preview/pr-11/sitemap-index.xml
