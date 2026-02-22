@@ -36,13 +36,28 @@ const { listing } = Astro.props;
 
 <style>
   article {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    background: linear-gradient(170deg, rgb(255 255 255 / 96%), rgb(253 246 250 / 86%));
+    border: 1px solid #edd8e7;
+    border-radius: 1rem;
     padding: 1rem;
     margin-bottom: 1rem;
+    box-shadow: 0 20px 35px -28px rgb(92 48 73 / 42%);
   }
+
   h3 {
     margin-top: 0;
+    margin-bottom: 0.4rem;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    text-decoration: underline;
+  }
+
+  p {
+    margin: 0.45rem 0;
   }
 </style>
