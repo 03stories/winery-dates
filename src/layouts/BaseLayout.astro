@@ -66,6 +66,12 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
 </html>
 
 <style>
+  :global(*),
+  :global(*::before),
+  :global(*::after) {
+    box-sizing: border-box;
+  }
+
   :global(:root) {
     --color-brand-50: #fdf6fa;
     --color-brand-100: #f7e9f1;
@@ -80,7 +86,11 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
     --shadow-card: 0 22px 44px -28px rgb(94 54 77 / 45%);
   }
 
+  :global(html),
   :global(body) {
+    max-width: 100%;
+    overflow-x: hidden;
+
     font-family: Inter, 'Segoe UI', system-ui, sans-serif;
     margin: 0;
     color: var(--color-text);
@@ -107,6 +117,23 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
 
   :global(a:hover) {
     color: var(--color-brand-500);
+  }
+
+
+
+  :global(img),
+  :global(svg),
+  :global(video),
+  :global(canvas),
+  :global(iframe) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :global(p),
+  :global(li),
+  :global(a) {
+    overflow-wrap: anywhere;
   }
 
   :global(input),
@@ -174,6 +201,7 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
     display: flex;
     gap: 0.4rem;
     flex-wrap: wrap;
+    max-width: 100%;
     padding: 0.25rem;
     border: 1px solid #edd9e7;
     border-radius: 999px;
@@ -223,6 +251,7 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
     padding: 0;
     margin: 0;
     list-style: none;
+    max-width: 100%;
   }
 
   @media (max-width: 760px) {
