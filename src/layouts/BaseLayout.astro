@@ -33,55 +33,202 @@ const shouldLoadAds = ADS_ENABLED && Boolean(ADSENSE_CLIENT_ID);
     )}
   </head>
   <body>
-    <header>
-      <nav>
-        <a href={toBasePath('/')}>Home</a>
-        <a href={toBasePath('/categories')}>Categories</a>
-        <a href={toBasePath('/cities')}>Cities</a>
-        <a href={toBasePath('/search')}>Search</a>
-      </nav>
-    </header>
-    <main>
-      <slot />
-    </main>
-    <footer>
-      <p>© {new Date().getFullYear()} Winery Dates Directory</p>
-      <ul>
-        <li><a href={toBasePath('/about')}>About</a></li>
-        <li><a href={toBasePath('/contact')}>Contact</a></li>
-        <li><a href={toBasePath('/submit-listing')}>Submit a listing</a></li>
-        <li><a href={toBasePath('/search')}>Search</a></li>
-        <li><a href={toBasePath('/privacy-policy')}>Privacy Policy</a></li>
-        <li><a href={toBasePath('/terms')}>Terms</a></li>
-      </ul>
-    </footer>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="container nav-wrap">
+          <a class="brand" href={toBasePath('/')}>Winery Dates</a>
+          <nav>
+            <a href={toBasePath('/')}>Home</a>
+            <a href={toBasePath('/categories')}>Categories</a>
+            <a href={toBasePath('/cities')}>Cities</a>
+            <a href={toBasePath('/search')}>Search</a>
+          </nav>
+        </div>
+      </header>
+      <main class="container">
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <div class="container footer-wrap">
+          <p>© {new Date().getFullYear()} Winery Dates Directory</p>
+          <ul>
+            <li><a href={toBasePath('/about')}>About</a></li>
+            <li><a href={toBasePath('/contact')}>Contact</a></li>
+            <li><a href={toBasePath('/submit-listing')}>Submit a listing</a></li>
+            <li><a href={toBasePath('/search')}>Search</a></li>
+            <li><a href={toBasePath('/privacy-policy')}>Privacy Policy</a></li>
+            <li><a href={toBasePath('/terms')}>Terms</a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
 
 <style>
-  :global(body) {
-    font-family: Inter, system-ui, sans-serif;
-    margin: 0;
-    color: #1f2937;
-    background: #f8fafc;
+  :global(:root) {
+    --color-brand-50: #fdf6fa;
+    --color-brand-100: #f7e9f1;
+    --color-brand-300: #dba5c4;
+    --color-brand-500: #a54a7b;
+    --color-brand-700: #762c54;
+    --color-olive-200: #dee5ce;
+    --color-olive-700: #435430;
+    --color-bg: #fcf9f5;
+    --color-text: #3f2f36;
+    --color-panel: #fffcff;
+    --shadow-card: 0 22px 44px -28px rgb(94 54 77 / 45%);
   }
-  header,
-  main,
-  footer {
-    max-width: 960px;
+
+  :global(body) {
+    font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    color: var(--color-text);
+    background:
+      radial-gradient(circle at 12% 0%, rgb(247 233 241 / 75%), transparent 38%),
+      radial-gradient(circle at 85% 100%, rgb(222 229 206 / 65%), transparent 28%),
+      var(--color-bg);
+    line-height: 1.6;
+  }
+
+  :global(h1),
+  :global(h2),
+  :global(h3) {
+    color: #311f2a;
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    line-height: 1.25;
+  }
+
+  :global(a) {
+    color: var(--color-brand-700);
+    text-underline-offset: 0.16em;
+    text-decoration-thickness: 1.5px;
+  }
+
+  :global(a:hover) {
+    color: var(--color-brand-500);
+  }
+
+  :global(input),
+  :global(select),
+  :global(textarea),
+  :global(button) {
+    font: inherit;
+  }
+
+  :global(input[type='search']),
+  :global(input[type='text']),
+  :global(input[type='email']),
+  :global(textarea),
+  :global(select) {
+    border: 1px solid #e9d3e1;
+    border-radius: 0.7rem;
+    background: rgb(255 255 255 / 92%);
+    color: #3f2f36;
+  }
+
+  .site-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    width: min(100%, 1040px);
     margin: 0 auto;
     padding: 1rem;
   }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+    background: rgb(255 255 255 / 80%);
+    border-bottom: 1px solid #eedcea;
+  }
+
+  .nav-wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .brand {
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--color-brand-700);
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.7rem;
+    border: 1px solid transparent;
+  }
+
+  .brand:hover {
+    background: var(--color-brand-50);
+    border-color: #edd6e6;
+  }
+
   nav {
     display: flex;
-    gap: 1rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
+    padding: 0.25rem;
+    border: 1px solid #edd9e7;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 82%);
+    box-shadow: var(--shadow-card);
   }
+
   nav a {
     text-decoration: none;
-    color: #1d4ed8;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #574350;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
   }
-  footer ul {
-    padding-left: 1.2rem;
+
+  nav a:hover {
+    color: var(--color-brand-700);
+    background: var(--color-brand-100);
+  }
+
+  main {
+    flex: 1;
+    padding-top: 1.4rem;
+  }
+
+  .site-footer {
+    border-top: 1px solid #eedcea;
+    margin-top: 2rem;
+    background: rgb(255 255 255 / 70%);
+  }
+
+  .footer-wrap {
+    color: #5c4b57;
+    font-size: 0.92rem;
+  }
+
+  .footer-wrap p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .footer-wrap ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 760px) {
+    .nav-wrap {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>
