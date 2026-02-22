@@ -4,6 +4,13 @@ import { Card } from '@/components/Card';
 import { wineries } from '@/data/wineries';
 import { calculateDistanceMiles, extractUsZipCode, getZipCoordinatesForUsZip } from '@/utils/geo';
 
+const moodPresets = [
+  { label: 'Mountain views', value: 'mountain' },
+  { label: 'Patio sunset', value: 'patio' },
+  { label: 'Restaurant pairing', value: 'restaurant' },
+  { label: 'North Georgia', value: 'ga' }
+] as const;
+
 export function HomePage(): JSX.Element {
   const [query, setQuery] = useState('');
   const [minRating, setMinRating] = useState(4.5);
@@ -137,25 +144,69 @@ export function HomePage(): JSX.Element {
       });
   }, [distanceByWineryId, hasDistanceSort, minRating, outsideFood, query]);
 
+  const averageRating = useMemo(() => {
+    const total = wineries.reduce((sum, winery) => sum + winery.rating, 0);
+    return total / wineries.length;
+  }, []);
+
   return (
     <div className="space-y-6">
+      <section className="glass-panel overflow-hidden rounded-3xl border border-brand-100/90">
+        <div className="bg-gradient-to-r from-brand-700 via-brand-500 to-olive-600 px-6 py-8 text-white sm:px-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+            Date Night Concierge
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Plan a night that feels effortless, playful, and a little luxurious.
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm text-white/90 sm:text-base">
+            Discover winery spots that fit your vibe, distance, and quality bar—so you can spend
+            less time scrolling and more time making the night memorable.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-white/90">
+            <span className="rounded-full border border-white/40 bg-white/10 px-3 py-1">
+              {wineries.length}+ curated winery picks
+            </span>
+            <span className="rounded-full border border-white/40 bg-white/10 px-3 py-1">
+              Avg rating {averageRating.toFixed(1)}★
+            </span>
+            <span className="rounded-full border border-white/40 bg-white/10 px-3 py-1">
+              Filters built for date-night planning
+            </span>
+          </div>
+        </div>
+      </section>
+
       <Card
-        title="Find a winery for date night"
-        description="Tell us your vibe and we'll help you discover a perfect Georgia wine stop."
+        title="Find your just-right winery"
+        description="Answer a few practical questions and we’ll surface places that match the mood."
       >
+        <div className="mb-4 flex flex-wrap gap-2">
+          {moodPresets.map((preset) => (
+            <button
+              key={preset.value}
+              type="button"
+              onClick={() => setQuery(preset.value)}
+              className="rounded-full border border-brand-100 bg-white px-3 py-1 text-xs font-medium text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="text-sm text-slate-700">
-            <span className="font-medium">I'm in the mood for a place around</span>
+            <span className="font-medium">What kind of setting are you craving?</span>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Dahlonega, Atlanta, terrace, etc."
+              placeholder="Dahlonega, Atlanta, mountain view, terrace..."
               className="field-base"
             />
           </label>
 
           <label className="text-sm text-slate-700">
-            <span className="font-medium">Please show wineries where outside food is</span>
+            <span className="font-medium">Do you want picnic flexibility?</span>
             <select
               value={outsideFood}
               onChange={(event) =>
@@ -170,7 +221,7 @@ export function HomePage(): JSX.Element {
           </label>
 
           <label className="text-sm text-slate-700">
-            <span className="font-medium">Keep the quality at least</span>
+            <span className="font-medium">How polished should the experience be?</span>
             <p className="mt-1 text-xs text-slate-500">{minRating.toFixed(1)} stars and up</p>
             <input
               type="range"
@@ -184,7 +235,7 @@ export function HomePage(): JSX.Element {
           </label>
 
           <label className="text-sm text-slate-700">
-            <span className="font-medium">Your ZIP code (where you're starting)</span>
+            <span className="font-medium">Your ZIP code (where your night starts)</span>
             <input
               value={zipCode}
               onChange={(event) => setZipCode(event.target.value.replace(/\D/g, '').slice(0, 5))}
@@ -195,7 +246,7 @@ export function HomePage(): JSX.Element {
             />
             <p className="mt-1 text-xs text-slate-500">
               {zipCode.length === 0
-                ? 'Optional, but helpful if you want nearest-first recommendations.'
+                ? 'Optional, but powerful if you want nearest-first recommendations.'
                 : zipCode.length < 5
                   ? 'Great start — add all 5 digits.'
                   : zipLookupStatus === 'loading'
@@ -206,6 +257,18 @@ export function HomePage(): JSX.Element {
             </p>
           </label>
         </div>
+      </Card>
+
+      <Card
+        title="Date-night decision guide"
+        description="Use this quick checklist while comparing wineries."
+      >
+        <ul className="grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
+          <li>• Do we want to stay close or make it a scenic drive?</li>
+          <li>• Are we bringing a charcuterie board or going all in on in-house options?</li>
+          <li>• Is this a relaxed afternoon date or a dressed-up evening stop?</li>
+          <li>• Are we prioritizing high ratings or a specific region vibe?</li>
+        </ul>
       </Card>
 
       <div className="grid gap-5 md:grid-cols-2">

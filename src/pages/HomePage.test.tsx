@@ -49,13 +49,29 @@ describe('HomePage', () => {
       expect(screen.getByText(/sorted by distance \(nearest first\)\./i)).toBeInTheDocument();
     });
 
-    const headings = screen
+    const wineryHeadings = screen
       .getAllByRole('heading', { level: 2 })
-      .map((heading) => heading.textContent);
-    expect(headings.indexOf('Chateau Elan Winery & Resort')).toBeLessThan(
-      headings.indexOf('Wolf Mountain Vineyards & Winery')
+      .map((heading) => heading.textContent)
+      .filter((heading): heading is string => heading !== null)
+      .filter((heading) => heading.includes('Winery') || heading.includes('Vineyards'));
+
+    expect(wineryHeadings.indexOf('Chateau Elan Winery & Resort')).toBeLessThan(
+      wineryHeadings.indexOf('Wolf Mountain Vineyards & Winery')
     );
 
     expect(screen.getByText(/0.0 miles away/i)).toBeInTheDocument();
+  });
+
+  it('applies a mood preset to the setting search field', async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
+
+    await user.click(screen.getByRole('button', { name: /mountain views/i }));
+
+    expect(screen.getByLabelText(/what kind of setting are you craving/i)).toHaveValue('mountain');
   });
 });

@@ -10,37 +10,79 @@ const listings = (await getCollection('listings')).sort(
 );
 const featured = listings.filter((listing) => listing.data.featured);
 const searchPath = toBasePath('/search');
+const categoryPath = toBasePath('/categories');
+const citiesPath = toBasePath('/cities');
+const plannerPrompts = [
+  'Do we want a scenic mountain drive or a quick city-friendly stop?',
+  'Are we planning to bring picnic bites, or prefer places with food onsite?',
+  'How polished should the experience feel tonight: cozy-casual or elevated?',
+  'Is this a one-stop date, or part of a full wine-country day plan?'
+];
+const quickSearches = [
+  { label: 'Mountain views', query: 'mountain' },
+  { label: 'Restaurant + wine', query: 'restaurant' },
+  { label: 'Date-night tours', query: 'tour' },
+  { label: 'Dahlonega picks', query: 'dahlonega' }
+];
 ---
 
 <BaseLayout
   title="Home"
   description="Discover featured wineries and date-night listings across North Georgia."
 >
-  <h1>Winery Dates Directory</h1>
-  <p>A focused local directory for date-night winery spots, tours, and nearby planning services.</p>
-  <form action={searchPath} method="get" class="home-search" role="search" aria-label="Search listings">
-    <label for="home-search-input">Search listings</label>
-    <div class="home-search-controls">
-      <input
-        id="home-search-input"
-        name="q"
-        type="search"
-        placeholder="Try a winery name, city, or category"
-        autocomplete="off"
-      />
-      <button type="submit" aria-label="Search listings">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path
-            d="M10.5 3.5a7 7 0 0 1 5.56 11.25l4.35 4.34a1 1 0 0 1-1.42 1.42l-4.34-4.35A7 7 0 1 1 10.5 3.5Zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"
-            fill="currentColor"
-          ></path>
-        </svg>
-        <span class="sr-only">Search</span>
-      </button>
+  <section class="hero">
+    <p class="kicker">Winery Dates Concierge</p>
+    <h1>Find the perfect wine date night in North Georgia.</h1>
+    <p class="lead">
+      Explore curated wineries, tours, transportation, and stay options that make your night feel
+      fun, refined, and easy to plan.
+    </p>
+
+    <form action={searchPath} method="get" class="home-search" role="search" aria-label="Search listings">
+      <label for="home-search-input">What kind of place are you in the mood for?</label>
+      <div class="home-search-controls">
+        <input
+          id="home-search-input"
+          name="q"
+          type="search"
+          placeholder="Try mountain views, patio, tasting room, Dahlonega..."
+          autocomplete="off"
+        />
+        <button type="submit" aria-label="Search listings">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M10.5 3.5a7 7 0 0 1 5.56 11.25l4.35 4.34a1 1 0 0 1-1.42 1.42l-4.34-4.35A7 7 0 1 1 10.5 3.5Zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+          <span class="sr-only">Search</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="quick-filters" aria-label="Quick search ideas">
+      {quickSearches.map((item) => (
+        <a href={`${searchPath}?q=${encodeURIComponent(item.query)}`}>{item.label}</a>
+      ))}
     </div>
-  </form>
+
+    <div class="hero-links">
+      <a href={categoryPath}>Browse by category</a>
+      <a href={citiesPath}>Browse by city</a>
+    </div>
+  </section>
 
   <AdSlot slotName="home-top" position="top" />
+
+  <section class="planner-questions">
+    <h2>Date-night planning questions</h2>
+    <p>Use this quick checklist to compare options and pick a spot that fits both of your vibes.</p>
+    <ul>
+      {plannerPrompts.map((prompt) => (
+        <li>{prompt}</li>
+      ))}
+    </ul>
+  </section>
 
   <section>
     <h2>Featured Listings</h2>
@@ -54,15 +96,46 @@ const searchPath = toBasePath('/search');
 </BaseLayout>
 
 <style>
+  .hero {
+    margin-bottom: 1.75rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #581c87, #7c3aed 45%, #4338ca);
+    color: #f8fafc;
+    box-shadow: 0 16px 40px -24px rgba(30, 41, 59, 0.7);
+  }
+
+  .kicker {
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ddd6fe;
+  }
+
+  .hero h1 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  .lead {
+    margin: 0;
+    max-width: 70ch;
+    color: #ede9fe;
+  }
+
   .home-search {
-    margin: 1rem 0 1.5rem;
-    max-width: 720px;
+    margin: 1.25rem 0 1rem;
+    max-width: 780px;
   }
 
   .home-search label {
     display: block;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    color: #f5f3ff;
   }
 
   .home-search-controls {
@@ -74,23 +147,24 @@ const searchPath = toBasePath('/search');
   .home-search input {
     flex: 1;
     min-width: 0;
-    border: 1px solid #cbd5e1;
-    border-radius: 0.5rem;
+    border: 1px solid #c4b5fd;
+    border-radius: 0.625rem;
     padding: 0.75rem 1rem;
     font: inherit;
+    background: rgba(255, 255, 255, 0.96);
   }
 
   .home-search input:focus {
-    outline: 2px solid #2563eb;
+    outline: 2px solid #a78bfa;
     outline-offset: 1px;
-    border-color: #2563eb;
+    border-color: #8b5cf6;
   }
 
   .home-search button {
-    border: 1px solid #1d4ed8;
-    background: #1d4ed8;
+    border: 1px solid #ede9fe;
+    background: rgba(255, 255, 255, 0.15);
     color: #fff;
-    border-radius: 0.5rem;
+    border-radius: 0.625rem;
     width: 3rem;
     height: 3rem;
     display: inline-flex;
@@ -102,18 +176,74 @@ const searchPath = toBasePath('/search');
   }
 
   .home-search button:hover {
-    background: #1e40af;
-    border-color: #1e40af;
+    background: rgba(255, 255, 255, 0.28);
   }
 
   .home-search button:focus-visible {
-    outline: 2px solid #2563eb;
+    outline: 2px solid #c4b5fd;
     outline-offset: 2px;
   }
 
   .home-search button svg {
     width: 1.25rem;
     height: 1.25rem;
+  }
+
+  .quick-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .quick-filters a {
+    text-decoration: none;
+    color: #f5f3ff;
+    border: 1px solid rgba(237, 233, 254, 0.8);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .quick-filters a:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-links a {
+    color: #f5f3ff;
+    font-weight: 700;
+  }
+
+  .planner-questions {
+    margin: 1rem 0 1.5rem;
+    border: 1px solid #e9d5ff;
+    border-radius: 0.9rem;
+    background: linear-gradient(180deg, #faf5ff, #fff);
+    padding: 1rem 1.15rem;
+  }
+
+  .planner-questions h2 {
+    margin-top: 0;
+  }
+
+  .planner-questions p {
+    margin-top: 0;
+    color: #475569;
+  }
+
+  .planner-questions ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
   }
 
   .sr-only {
@@ -129,6 +259,10 @@ const searchPath = toBasePath('/search');
   }
 
   @media (max-width: 640px) {
+    .hero {
+      padding: 1.1rem;
+    }
+
     .home-search-controls {
       flex-direction: column;
       align-items: stretch;
