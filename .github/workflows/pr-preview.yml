@@ -35,7 +35,9 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           raw="$RAW_BASE_PATH"
-          if [ -z "$raw" ]; then
+          if [ -f "public/CNAME" ]; then
+            raw="/"
+          elif [ -z "$raw" ]; then
             raw="/$REPO_NAME/"
           fi
 
